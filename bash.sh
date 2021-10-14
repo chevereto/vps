@@ -13,6 +13,7 @@ EOM
 # init.sh (start)
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 WORKING_DIR="/var/www/html"
+PROJECT_IP=$(hostname -I | awk '{ print $1 }')
 
 # chevereto
 CHEVERETO_INSTALLER_TAG="3.0.0"
@@ -181,3 +182,4 @@ echo $(date -u) ": System provisioning script is complete." >>/var/log/per-insta
 # init.sh (end)
 
 echo "[OK] Chevereto Installer $CHEVERETO_INSTALLER_TAG provisioned!"
+echo "Continue the process at http://$PROJECT_IP/installer.php"
