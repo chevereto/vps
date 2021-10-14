@@ -16,7 +16,7 @@ Universal  shell script to install Chevereto in any VPS (Ubuntu).
 * Run the following command
 
 ```sh
-curl -s https://raw.githubusercontent.com/chevereto/vps/main/bash.sh | bash
+curl -s https://raw.githubusercontent.com/chevereto/vps/3.20/bash.sh | bash
 ```
 
 * Click on the installer URL at the end of the process
