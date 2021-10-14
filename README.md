@@ -7,7 +7,7 @@
 [![Community](https://img.shields.io/badge/chv.to-community-blue?style=flat-square)](https://chv.to/community)
 [![Discord](https://img.shields.io/discord/759137550312407050?style=flat-square)](https://chv.to/discord)
 
-Universal  shell script to install Chevereto in any VPS (Ubuntu).
+Universal bash script to install Chevereto in any VPS (Ubuntu).
 
 ## 1 Minute setup
 
