@@ -16,7 +16,7 @@ WORKING_DIR="/var/www/html"
 PROJECT_IP=$(hostname -I | awk '{ print $1 }')
 
 # chevereto
-CHEVERETO_INSTALLER_TAG="3.0.0"
+CHEVERETO_INSTALLER_TAG="3.1.0"
 
 # scripts/00-update.sh
 echo "[UP] Upading packages... This could take some minutes."
