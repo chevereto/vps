@@ -20,6 +20,19 @@ curl -s https://raw.githubusercontent.com/chevereto/vps/3.20/bash.sh | bash
 
 * Click on the installer URL at the end of the process
 
+## Notes
+
+On the server:
+
+* The default web root is located at `/var/www/html`
+* The MySQL root password is saved at `/root/.mysql_password`
+* To configure HTTPS run `certbot --apache -d example.com -d www.example.com`
+
+IMPORTANT:
+
+* Secure your database by running `mysql_secure_installation`
+* Setup email delivery at `http://localhost/dashboard/settings/email`
+
 ## Troubleshooting
 
 * `E: Unable to lock directory /var/lib/apt/lists/`

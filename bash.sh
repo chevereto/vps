@@ -64,7 +64,7 @@ In a web browser, you can view:
 On the server:
  * The default web root is located at /var/www/html
  * The MySQL root password is saved at
-   in /root/.mysql_password
+   /root/.mysql_password
  * Certbot is preinstalled, to configure HTTPS run:
    > certbot --apache -d example.com -d www.example.com
 
