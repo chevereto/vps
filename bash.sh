@@ -16,15 +16,17 @@ WORKING_DIR="/var/www/html"
 PROJECT_IP=$(hostname -I | awk '{ print $1 }')
 
 # chevereto
-CHEVERETO_INSTALLER_TAG="3.1.0"
+CHEVERETO_INSTALLER_TAG="4.0.0"
 
 # scripts/00-update.sh
-echo "[UP] Upading packages... This could take some minutes."
+echo "[UP] Updading packages... This could take some minutes."
 DEBIAN_FRONTEND=noninteractive apt-get update -qq >/dev/null
-apt-get install -qq -y apache2 libapache2-mod-php
+apt-get install -qq -y ca-certificates apt-transport-https software-properties-common
+add-apt-repository -y ppa:ondrej/php
+apt-get install -qq -y apache2 libapache2-mod-php8.0
 apt-get install -qq -y mysql-server
-apt-get install -qq -y php
-apt-get install -y php-{common,cli,curl,fileinfo,gd,imagick,intl,json,mbstring,mysql,opcache,pdo,pdo-mysql,xml,xmlrpc,zip}
+apt-get install -qq -y php8.0
+apt-get install -y php8.0-{common,cli,curl,fileinfo,gd,imagick,intl,mbstring,mysql,opcache,pdo,pdo-mysql,xml,xmlrpc,zip}
 apt-get install -y python3-certbot-apache software-properties-common unzip
 
 # scripts/01-fs.sh
@@ -83,11 +85,11 @@ EOM
 chmod +x /etc/update-motd.d/99-one-click
 
 cat >/etc/cron.d/chevereto <<EOM
-* * * * * www-data php /var/www/html/cli.php -C cron
+* * * * * www-data php /var/www/html/app/bin/legacy -C cron
 EOM
 
 # scripts/10-php.sh
-cat >/etc/php/7.4/apache2/conf.d/chevereto.ini <<EOM
+cat >/etc/php/8.0/apache2/conf.d/chevereto.ini <<EOM
 log_errors = On
 upload_max_filesize = 50M
 post_max_size = 50M
