@@ -26,7 +26,7 @@ add-apt-repository -y ppa:ondrej/php
 apt-get install -qq -y apache2 libapache2-mod-php8.0
 apt-get install -qq -y mysql-server
 apt-get install -qq -y php8.0
-apt-get install -y php8.0-{common,cli,curl,fileinfo,gd,imagick,intl,mbstring,mysql,opcache,pdo,pdo-mysql,xml,xmlrpc,zip}
+apt-get install -y php8.0-{bcmath,common,cli,curl,fileinfo,gd,imagick,intl,mbstring,mysql,opcache,pdo,pdo-mysql,xml,xmlrpc,zip}
 apt-get install -y python3-certbot-apache software-properties-common unzip
 
 # scripts/01-fs.sh
