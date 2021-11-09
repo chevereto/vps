@@ -2,6 +2,19 @@
 
 set -e
 
+# init.sh (start)
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+WORKING_DIR="/var/www/html"
+PROJECT_IP=$(hostname -I | awk '{ print $1 }')
+
+# Tags
+CHEVERETO_SOFTWARE="chevereto"
+CHEVERETO_TAG="4"
+CHEVERETO_PACKAGE=$CHEVERETO_TAG
+CHEVERETO_API_DOWNLOAD="https://chevereto.com/api/download/"
+CHEVERETO_LABEL="Chevereto V$CHEVERETO_TAG"
+
+# Header
 cat <<EOM
       __                        __     
  ____/ /  ___ _  _____ _______ / /____ 
@@ -10,16 +23,18 @@ cat <<EOM
 
 EOM
 
-# init.sh (start)
-PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-WORKING_DIR="/var/www/html"
-PROJECT_IP=$(hostname -I | awk '{ print $1 }')
+# Ask license
+echo -n "$CHEVERETO_LABEL License:"
+read -s CHEVERETO_LICENSE
+echo ""
 
-# chevereto
-CHEVERETO_INSTALLER_TAG="4.0.0"
+# Download
+curl -f -SOJL \
+    -H "License: $CHEVERETO_LICENSE" \
+    "${CHEVERETO_API_DOWNLOAD}${CHEVERETO_PACKAGE}"
 
 # scripts/00-update.sh
-echo "[UP] Updading packages... This could take some minutes."
+echo "[UP] Updating packages... This could take some minutes."
 DEBIAN_FRONTEND=noninteractive apt-get update -qq >/dev/null
 apt-get install -qq -y ca-certificates apt-transport-https software-properties-common
 add-apt-repository -y ppa:ondrej/php
@@ -28,6 +43,10 @@ apt-get install -qq -y mysql-server
 apt-get install -qq -y php8.0
 apt-get install -y php8.0-{bcmath,common,cli,curl,fileinfo,gd,imagick,intl,mbstring,mysql,opcache,pdo,pdo-mysql,xml,xmlrpc,zip}
 apt-get install -y python3-certbot-apache software-properties-common unzip
+
+# Extract
+rm -rf "${WORKING_DIR}"/*
+unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
 
 # scripts/01-fs.sh
 cat >/etc/apache2/sites-available/000-default.conf <<EOM
@@ -43,7 +62,6 @@ cat >/etc/apache2/sites-available/000-default.conf <<EOM
     CustomLog \${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 EOM
-
 cat >/etc/update-motd.d/99-one-click <<EOM
 #!/usr/bin/env bash
 
@@ -61,7 +79,7 @@ To keep this server secure, the UFW firewall is enabled.
 All ports are BLOCKED except 22 (SSH), 80 (HTTP), and 443 (HTTPS).
 
 In a web browser, you can view:
- * The Chevereto installer: http://\$myip/installer.php
+ * The Chevereto website: http://\$myip/
 
 On the server:
  * The default web root is located at /var/www/html
@@ -71,7 +89,7 @@ On the server:
 
 IMPORTANT:
  * After connecting to the server for the first time, immediately install
-   Chevereto at http://\$myip/installer.php
+   Chevereto at http://\$myip/
  * Secure your database by running:
    > mysql_secure_installation
  * Setup email delivery at http://\$myip/dashboard/settings/email
@@ -83,7 +101,6 @@ To delete this message of the day: rm -rf \$(readlink -f \${0})
 EOF
 EOM
 chmod +x /etc/update-motd.d/99-one-click
-
 cat >/etc/cron.d/chevereto <<EOM
 * * * * * www-data php /var/www/html/app/bin/legacy -C cron
 EOM
@@ -93,66 +110,28 @@ cat >/etc/php/8.0/apache2/conf.d/chevereto.ini <<EOM
 log_errors = On
 upload_max_filesize = 50M
 post_max_size = 50M
-max_execution_time = 30
+max_execution_time = 60
 memory_limit = 512M
 EOM
 
-# scripts/11-installer.sh
-rm -rf "${WORKING_DIR}"/*
-mkdir -p /chevereto && mkdir -p /chevereto/download
-cd /chevereto/download
-curl -S -o installer.php -L "https://github.com/chevereto/installer/releases/download/${CHEVERETO_INSTALLER_TAG}/installer.php"
-mv -v installer.php "${WORKING_DIR}"/installer.php
-touch "${WORKING_DIR}"/installer.lock
-cd $WORKING_DIR
-
-# scripts/12-apache.sh
-chown -R www-data: /var/log/apache2
-chown -R www-data: /etc/apache2
-chown -R www-data: $WORKING_DIR
-
-a2enmod rewrite
-
-# common/scripts/14-ufw-apache.sh
-ufw limit ssh
-ufw allow 'Apache Full'
-ufw --force enable
-
-# files/var/lib/cloud/scripts/per-instance/provision.sh
+# files/var/lib/cloud/scripts/per-instance/provision.sh (*)
 echo $(date -u) ": System provisioning started." >>/var/log/per-instance.log
-
 MYSQL_ROOT_PASS=$(openssl rand -hex 16)
 DEBIAN_SYS_MAINT_MYSQL_PASS=$(openssl rand -hex 16)
-
 CHEVERETO_DB_HOST=localhost
 CHEVERETO_DB_PORT=3306
 CHEVERETO_DB_NAME=chevereto
 CHEVERETO_DB_USER=chevereto
 CHEVERETO_DB_PASS=$(openssl rand -hex 16)
-
 cat >/root/.mysql_password <<EOM
 MYSQL_ROOT_PASS="${MYSQL_ROOT_PASS}"
 EOM
-
 mysql -u root -e "CREATE DATABASE $CHEVERETO_DB_NAME;"
 mysql -u root -e "CREATE USER '$CHEVERETO_DB_USER'@'$CHEVERETO_DB_HOST' IDENTIFIED BY '$CHEVERETO_DB_PASS';"
 mysql -u root -e "GRANT ALL ON *.* TO '$CHEVERETO_DB_USER'@'$CHEVERETO_DB_HOST';"
-
 mysqladmin -u root -h localhost password $MYSQL_ROOT_PASS
-
 mysql -uroot -p${MYSQL_ROOT_PASS} \
     -e "ALTER USER 'debian-sys-maint'@'localhost' IDENTIFIED BY '$DEBIAN_SYS_MAINT_MYSQL_PASS';"
-
-cat >>/etc/apache2/envvars <<EOM
-export CHEVERETO_DB_HOST=${CHEVERETO_DB_HOST}
-export CHEVERETO_DB_NAME=${CHEVERETO_DB_NAME}
-export CHEVERETO_DB_USER=${CHEVERETO_DB_USER}
-export CHEVERETO_DB_PASS=${CHEVERETO_DB_PASS}
-export CHEVERETO_DB_PORT=${CHEVERETO_DB_PORT}
-EOM
-
-systemctl restart apache2
-
 cat >/etc/mysql/debian.cnf <<EOM
 # Automatically generated for Debian scripts. DO NOT TOUCH!
 [client]
@@ -167,20 +146,31 @@ password = ${DEBIAN_SYS_MAINT_MYSQL_PASS}
 socket   = /var/run/mysqld/mysqld.sock
 EOM
 
-sed -e '/Match User root/d' \
-    -e '/.*ForceCommand.*Chevereto.*/d' \
-    -i /etc/ssh/sshd_config
+# Settings
+cat >"$WORKING_DIR/.env" <<EOM
+CHEVERETO_DB_HOST=${CHEVERETO_DB_HOST}
+CHEVERETO_DB_NAME=${CHEVERETO_DB_NAME}
+CHEVERETO_DB_PASS=${CHEVERETO_DB_PASS}
+CHEVERETO_DB_PORT=${CHEVERETO_DB_PORT}
+CHEVERETO_DB_USER=${CHEVERETO_DB_USER}
+CHEVERETO_DB_TABLE_PREFIX=chv_
+EOM
 
-systemctl restart ssh
+# scripts/12-apache.sh
+chown -R www-data: /var/log/apache2
+chown -R www-data: /etc/apache2
+chown -R www-data: $WORKING_DIR
+a2enmod rewrite
 
-rm -rf "${WORKING_DIR}"/installer.lock
+# files/var/lib/cloud/scripts/per-instance/provision.sh (*)
+systemctl restart apache2
 
+# common/scripts/14-ufw-apache.sh
+ufw limit ssh
+ufw allow 'Apache Full'
+ufw --force enable
+
+# files/var/lib/cloud/scripts/per-instance/provision.sh (*)
 echo $(date -u) ": System provisioning script is complete." >>/var/log/per-instance.log
-
-# [SKIP] common/scripts/03-force-ssh-logout.sh
-# [SKIP] common/scripts/90-cleanup.sh
-
-# init.sh (end)
-
-echo "[OK] Chevereto Installer $CHEVERETO_INSTALLER_TAG provisioned!"
-echo "Continue the process at http://$PROJECT_IP/installer.php"
+echo "[OK] $CHEVERETO_LABEL provisioned!"
+echo "Continue the process at http://$PROJECT_IP"
