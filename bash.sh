@@ -35,7 +35,7 @@ curl -f -SOJL \
     "${CHEVERETO_API_DOWNLOAD}${CHEVERETO_PACKAGE}"
 
 # scripts/00-update.sh
-echo "[UP] Upading packages... This could take some minutes."
+echo "[UP] Updating packages... This could take some minutes."
 DEBIAN_FRONTEND=noninteractive apt-get update -qq >/dev/null
 apt-get install -qq -y apache2 libapache2-mod-php
 apt-get install -qq -y mysql-server
