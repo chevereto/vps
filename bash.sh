@@ -7,12 +7,31 @@ PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 WORKING_DIR="/var/www/html"
 PROJECT_IP=$(hostname -I | awk '{ print $1 }')
 
+# Flags
+while getopts ":t:" opt; do
+    case $opt in
+    t)
+        CHEVERETO_TAG=$OPTARG
+        echo "Using tag $OPTARG" >&2
+        ;;
+    \?)
+        echo "Invalid option: -$OPTARG" >&2
+        exit 1
+        ;;
+    :)
+        echo "Option -$OPTARG requires an argument." >&2
+        exit 1
+        ;;
+    esac
+done
+
 # Tags
 CHEVERETO_SOFTWARE="chevereto"
-CHEVERETO_TAG="4"
+CHEVERETO_VERSION="4"
+CHEVERETO_TAG=${CHEVERETO_TAG:-${CHEVERETO_VERSION}}
 CHEVERETO_PACKAGE=$CHEVERETO_TAG
 CHEVERETO_API_DOWNLOAD="https://chevereto.com/api/download/"
-CHEVERETO_LABEL="Chevereto V$CHEVERETO_TAG"
+CHEVERETO_LABEL="Chevereto V$CHEVERETO_VERSION"
 
 # Header
 cat <<EOM
