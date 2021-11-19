@@ -43,7 +43,7 @@ cat <<EOM
 EOM
 
 # Ask license
-echo -n "$CHEVERETO_LABEL License:"
+echo -n "$CHEVERETO_LABEL License (hidden):"
 read -s CHEVERETO_LICENSE
 echo ""
 
@@ -62,16 +62,21 @@ apt-get install -qq -y php
 apt-get install -y php-{common,cli,curl,fileinfo,gd,imagick,intl,json,mbstring,mysql,opcache,pdo,pdo-mysql,xml,xmlrpc,zip}
 apt-get install -y python3-certbot-apache software-properties-common unzip
 
-# Instalamos Composer
-# Si existe en el sistema ya instalado, procedemos a actualizar
-if [[ -f "/usr/local/bin/composer" ]]
-    then
-    /usr/local/bin/composer selfupdate
-else
-# Si no existe, descargamos e instalamos
-    wget https://getcomposer.org/installer -O /tmp/composer-setup.php
-    php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+# composer
+if ! command -v composer &>/dev/null; then
+    COMPOSER_CHECKSUM_VERIFY="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    COMPOSER_HASH_FILE="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+    if [ "$COMPOSER_CHECKSUM_VERIFY" != "$COMPOSER_HASH_FILE" ]; then
+        echo >&2 'ERROR: Invalid Composer installer checksum'
+        rm composer-setup.php
+        exit 1
+    fi
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    rm composer-setup.php
     chmod +x /usr/local/bin/composer
+else
+    composer selfupdate
 fi
 
 # Extract
