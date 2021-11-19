@@ -62,6 +62,18 @@ apt-get install -qq -y php
 apt-get install -y php-{common,cli,curl,fileinfo,gd,imagick,intl,json,mbstring,mysql,opcache,pdo,pdo-mysql,xml,xmlrpc,zip}
 apt-get install -y python3-certbot-apache software-properties-common unzip
 
+# Instalamos Composer
+# Si existe en el sistema ya instalado, procedemos a actualizar
+if [[ -f "/usr/local/bin/composer" ]]
+    then
+    /usr/local/bin/composer selfupdate
+else
+# Si no existe, descargamos e instalamos
+    wget https://getcomposer.org/installer -O /tmp/composer-setup.php
+    php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    chmod +x /usr/local/bin/composer
+fi
+
 # Extract
 rm -rf "${WORKING_DIR}"/*
 unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
