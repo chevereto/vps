@@ -207,7 +207,7 @@ return [
     'CHEVERETO_DB_PORT' => '${CHEVERETO_DB_PORT}',
     'CHEVERETO_DB_USER' => '${CHEVERETO_DB_USER}',
     'CHEVERETO_DB_TABLE_PREFIX' => 'chv_',
-]
+];
 EOM
 
 # scripts/12-apache.sh
