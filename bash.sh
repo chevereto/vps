@@ -92,7 +92,7 @@ unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
 # Composer Install
 chown -R www-data: $WORKING_DIR
 sudo -u www-data composer install \
-    --working-dir=$WORKING_DIR \
+    --working-dir=$WORKING_DIR/app \
     --prefer-dist \
     --no-progress \
     --classmap-authoritative \
