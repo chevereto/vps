@@ -35,9 +35,9 @@ CHEVERETO_LABEL="Chevereto V$CHEVERETO_VERSION"
 
 # Header
 cat <<EOM
-      __                        __     
- ____/ /  ___ _  _____ _______ / /____ 
-/ __/ _ \/ -_) |/ / -_) __/ -_) __/ _ \ 
+      __                        __
+ ____/ /  ___ _  _____ _______ / /____
+/ __/ _ \/ -_) |/ / -_) __/ -_) __/ _ \\
 \__/_//_/\__/|___/\__/_/  \__/\__/\___/
 
 EOM
@@ -88,6 +88,7 @@ fi
 # Extract
 rm -rf "${WORKING_DIR}"/*
 unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
+rm -rf ${CHEVERETO_SOFTWARE}*.zip
 
 # Composer Install
 chown -R www-data: $WORKING_DIR
@@ -118,9 +119,9 @@ cat >/etc/update-motd.d/99-one-click <<EOM
 myip=\$(hostname -I | awk '{print\$1}')
 cat <<EOF
 ********************************************************************************
-      __                        __     
- ____/ /  ___ _  _____ _______ / /____ 
-/ __/ _ \/ -_) |/ / -_) __/ -_) __/ _ \ 
+      __                        __
+ ____/ /  ___ _  _____ _______ / /____
+/ __/ _ \/ -_) |/ / -_) __/ -_) __/ _ \\
 \__/_//_/\__/|___/\__/_/  \__/\__/\___/
 
 Welcome to your Chevereto server!

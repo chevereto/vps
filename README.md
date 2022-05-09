@@ -6,21 +6,24 @@
 
 [![Community](https://img.shields.io/badge/chv.to-community-blue?style=flat-square)](https://chv.to/community)
 
-Universal bash script to install Chevereto in any VPS (Ubuntu).
+Universal bash scripts to install Chevereto in any VPS (Ubuntu).
 
-## 1 Minute setup
+## New
 
-* Get a new VPS instance running Ubuntu 20.04
+This is intended to brand new servers. Refer to [Install](#install) if you only need to provide/update the application files.
+
+* Get a new VPS instance running Ubuntu 22.04 (20.04 minimum)
 * Login to your VPS
 * Run the following command
 
 ```sh
-bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/bash.sh)
+bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/ubuntu-20.04/new.sh)
 ```
 
 * Click on the URL at the end of the process
+* Profit!
 
-## Notes
+### Notes
 
 On the server:
 
@@ -33,8 +36,19 @@ IMPORTANT:
 * Secure your database by running `mysql_secure_installation`
 * Setup email delivery at `http://localhost/dashboard/settings/email`
 
-## Troubleshooting
+### Troubleshooting
 
 * `E: Unable to lock directory /var/lib/apt/lists/`
 
 Your VPS may be installing updates on boot. Give it a few minutes before running the command and try again later.
+
+## Install
+
+This is intended for existing installations. In this context, the bash script only downloads the application files and its dependencies.
+
+* Login to your VPS
+* Run the following command
+
+```sh
+bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/ubuntu-20.04/install.sh)
+```
