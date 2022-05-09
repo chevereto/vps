@@ -44,7 +44,7 @@ Your VPS may be installing updates on boot. Give it a few minutes before running
 
 ## Install
 
-This is intended for existing installations. In this context, the bash script only downloads the application files and its dependencies.
+This is intended for existing servers, where you don't require to install the server requirements (web server, database, update packages). The `install.sh` bash script only downloads the application files and its dependencies.
 
 * Login to your VPS
 * Run the following command
