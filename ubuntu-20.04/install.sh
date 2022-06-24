@@ -28,6 +28,12 @@ echo -n "$CHEVERETO_LABEL License (hidden):"
 read -s CHEVERETO_LICENSE
 echo ""
 
+# Download
+rm -rf ${CHEVERETO_SOFTWARE}*.zip
+curl -f -SOJL \
+    -H "License: $CHEVERETO_LICENSE" \
+    "${CHEVERETO_API_DOWNLOAD}${CHEVERETO_PACKAGE}"
+
 # composer
 if ! command -v composer &>/dev/null; then
     COMPOSER_CHECKSUM_VERIFY="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
