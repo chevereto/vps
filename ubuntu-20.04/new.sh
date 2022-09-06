@@ -60,6 +60,7 @@ rm -rf ${CHEVERETO_SOFTWARE}*.zip
 
 # composer
 if ! command -v composer &>/dev/null; then
+    echo "Installing composer"
     COMPOSER_CHECKSUM_VERIFY="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     COMPOSER_HASH_FILE="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
