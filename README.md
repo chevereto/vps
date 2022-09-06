@@ -12,7 +12,6 @@ Universal bash scripts to install Chevereto in any Ubuntu LTS (22.04 recommended
 
 * Login to your VPS
 * Run the following script(s)
-  * Make sure to change `22.04` to your match your Ubuntu LTS
 
 ## Scripts
 
@@ -20,10 +19,10 @@ Universal bash scripts to install Chevereto in any Ubuntu LTS (22.04 recommended
 
 The `prepare.sh` script install the system stack (web server, database, packages).
 
-Before running this command is recommended to:
+Before running this command:
 
-* Reboot your VPS
-* Run `apt-get upgrade`
+* Reboot your VPS (to apply kernel updates)
+* Make sure to change `22.04` to your match your Ubuntu LTS
 
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/ubuntu/22.04/prepare.sh)
@@ -36,7 +35,7 @@ The `new.sh` script downloads Chevereto and its dependencies. It configures Apac
 This is intended to brand new installations and it should run after [prepare](#prepare) as it assumes that the system stack is ready.
 
 ```sh
-bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/ubuntu/22.04/new.sh)
+bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/new.sh)
 ```
 
 ### Get
@@ -46,7 +45,7 @@ The `get.sh` script downloads Chevereto and update it's dependencies.
 This can be used in any context where the system stack is installed. It works at `/var/www/html` path.
 
 ```sh
-bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/ubuntu/22.04/get.sh)
+bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/get.sh)
 ```
 
 ## HTTPS setup
