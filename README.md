@@ -62,6 +62,7 @@ On the server:
 
 * The web root is located at `/var/www/html`
 * The MySQL root password is saved at `/root/.mysql_password`
+* Logs are at `/var/log/apache2`
 
 IMPORTANT:
 
