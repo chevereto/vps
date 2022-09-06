@@ -210,7 +210,8 @@ systemctl restart apache2
 
 # common/scripts/14-ufw-apache.sh
 ufw limit ssh
-ufw allow 'Apache Full'
+ufw allow http
+ufw allow https
 ufw --force enable
 
 # files/var/lib/cloud/scripts/per-instance/provision.sh (*)

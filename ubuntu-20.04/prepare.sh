@@ -28,3 +28,5 @@ apt-get install -qq -y python3-certbot-apache unzip
 
 # safe update
 update
+
+echo "[OK] Stack ready for Chevereto!"

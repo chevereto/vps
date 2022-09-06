@@ -6,7 +6,7 @@
 
 [![Community](https://img.shields.io/badge/chv.to-community-blue?style=flat-square)](https://chv.to/community)
 
-Universal bash scripts to install Chevereto in any Ubuntu VPS (20.04 minimum).
+Universal bash scripts to install Chevereto in any Ubuntu VPS (22.04 recommended, 20.04 min).
 
 ## Instructions
 
