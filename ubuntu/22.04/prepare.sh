@@ -5,7 +5,7 @@ set -e
 # scripts/00-update.sh
 cat <<EOF
 Updating system packages...
-This could take some minutes and prompt about updates
+This could take some minutes
 
 EOF
 
