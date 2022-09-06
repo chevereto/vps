@@ -19,6 +19,11 @@ Universal bash scripts to install Chevereto in any Ubuntu VPS (20.04 minimum).
 
 The `prepare.sh` script install the system stack (web server, database, packages).
 
+Before running this command is recommended to:
+
+* Reboot your VPS
+* Run `apt-get upgrade`
+
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/ubuntu-20.04/prepare.sh)
 ```
