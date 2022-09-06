@@ -53,38 +53,6 @@ curl -f -SOJL \
     -H "License: $CHEVERETO_LICENSE" \
     "${CHEVERETO_API_DOWNLOAD}${CHEVERETO_PACKAGE}"
 
-# scripts/00-update.sh
-echo "[UP] Updating packages... This could take some minutes."
-DEBIAN_FRONTEND=noninteractive apt-get update -qq >/dev/null
-apt-get install -qq -y ca-certificates apt-transport-https software-properties-common
-add-apt-repository -y ppa:ondrej/php
-apt-get install -qq -y apache2 libapache2-mod-php8.0
-apt-get install -qq -y mysql-server
-apt-get install -qq -y php8.0
-apt-get install -y php8.0-{bcmath,common,cli,curl,fileinfo,gd,imagick,intl,mbstring,mysql,opcache,pdo,pdo-mysql,xml,xmlrpc,zip}
-apt-get install -y python3-certbot-apache software-properties-common unzip
-
-# safe update
-DEBIAN_FRONTEND=noninteractive apt-get update -qq >/dev/null
-apt-get upgrade -qq -y >/dev/null
-
-# composer
-if ! command -v composer &>/dev/null; then
-    COMPOSER_CHECKSUM_VERIFY="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
-    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    COMPOSER_HASH_FILE="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
-    if [ "$COMPOSER_CHECKSUM_VERIFY" != "$COMPOSER_HASH_FILE" ]; then
-        echo >&2 'ERROR: Invalid Composer installer checksum'
-        rm composer-setup.php
-        exit 1
-    fi
-    php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-    rm composer-setup.php
-    chmod +x /usr/local/bin/composer
-else
-    composer selfupdate
-fi
-
 # Extract
 rm -rf "${WORKING_DIR}"/*
 unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
@@ -94,9 +62,7 @@ rm -rf ${CHEVERETO_SOFTWARE}*.zip
 chown -R www-data: $WORKING_DIR
 sudo -u www-data composer install \
     --working-dir=$WORKING_DIR/app \
-    --prefer-dist \
     --no-progress \
-    --classmap-authoritative \
     --ignore-platform-reqs
 
 # scripts/01-fs.sh
@@ -197,6 +163,8 @@ password = ${DEBIAN_SYS_MAINT_MYSQL_PASS}
 socket   = /var/run/mysqld/mysqld.sock
 EOM
 
+CHEVERETO_ENCRYPTION_KEY=$(openssl rand -hex 32)
+
 # Settings
 cat >"$WORKING_DIR/app/env.php" <<EOM
 <?php
@@ -208,6 +176,7 @@ return [
     'CHEVERETO_DB_PORT' => '${CHEVERETO_DB_PORT}',
     'CHEVERETO_DB_USER' => '${CHEVERETO_DB_USER}',
     'CHEVERETO_DB_TABLE_PREFIX' => 'chv_',
+    'CHEVERETO_ENCRYPTION_KEY' => '${CHEVERETO_ENCRYPTION_KEY}',
 ];
 EOM
 

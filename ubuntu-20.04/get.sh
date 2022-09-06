@@ -6,6 +6,24 @@ set -e
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 WORKING_DIR="/var/www/html"
 
+# Flags
+while getopts ":t:" opt; do
+    case $opt in
+    t)
+        CHEVERETO_TAG=$OPTARG
+        echo "Using tag $OPTARG" >&2
+        ;;
+    \?)
+        echo "Invalid option: -$OPTARG" >&2
+        exit 1
+        ;;
+    :)
+        echo "Option -$OPTARG requires an argument." >&2
+        exit 1
+        ;;
+    esac
+done
+
 # Tags
 CHEVERETO_SOFTWARE="chevereto"
 CHEVERETO_VERSION="4"
@@ -59,12 +77,7 @@ rm -rf ${CHEVERETO_SOFTWARE}*.zip
 chown -R www-data: $WORKING_DIR
 sudo -u www-data composer install \
     --working-dir=$WORKING_DIR/app \
-    --prefer-dist \
     --no-progress \
-    --classmap-authoritative \
     --ignore-platform-reqs
-
-# CLI install (database update)
-sudo -u www-data $WORKING_DIR/app/bin/legacy -C install
 
 echo "[OK] $CHEVERETO_LABEL provisioned!"
