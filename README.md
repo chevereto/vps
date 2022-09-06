@@ -8,10 +8,14 @@
 
 Universal bash scripts to install Chevereto in any Ubuntu VPS (20.04 minimum).
 
-* Login to your VPS
-* Run the following command(s)
+## Instructions
 
-## Prepare
+* Login to your VPS
+* Run the following script(s)
+
+## Scripts
+
+### Prepare
 
 The `prepare.sh` script install the system stack (web server, database, packages).
 
@@ -19,7 +23,7 @@ The `prepare.sh` script install the system stack (web server, database, packages
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/ubuntu-20.04/prepare.sh)
 ```
 
-## New
+### New
 
 The `new.sh` script downloads Chevereto and its dependencies. It configures Apache HTTP Web server, MySQL, cron and it prepares Chevereto for [HTTP setup](https://v4-docs.chevereto.com/application/installing/installation.html#http-setup).
 
@@ -29,7 +33,7 @@ This is intended to brand new installations and it should run after [prepare](#p
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/ubuntu-20.04/new.sh)
 ```
 
-## Get
+### Get
 
 The `get.sh` script downloads Chevereto and update it's dependencies.
 
