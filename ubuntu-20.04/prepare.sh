@@ -8,8 +8,12 @@ Updating system packages...
 This could take some minutes and prompt about updates
 
 EOF
+
+# stop prompts
+sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' /etc/needrestart/needrestart.conf
+
 update() {
-    DEBIAN_FRONTEND=noninteractive apt-get update -qq >/dev/null
+    DEBIAN_FRONTEND=noninteractive apt-get update -y -qq >/dev/null
     apt-get upgrade -qq -y >/dev/null
 }
 update

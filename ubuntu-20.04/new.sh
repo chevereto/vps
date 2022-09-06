@@ -58,6 +58,23 @@ rm -rf "${WORKING_DIR}"/*
 unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
 rm -rf ${CHEVERETO_SOFTWARE}*.zip
 
+# composer
+if ! command -v composer &>/dev/null; then
+    COMPOSER_CHECKSUM_VERIFY="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    COMPOSER_HASH_FILE="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+    if [ "$COMPOSER_CHECKSUM_VERIFY" != "$COMPOSER_HASH_FILE" ]; then
+        echo >&2 'ERROR: Invalid Composer installer checksum'
+        rm composer-setup.php
+        exit 1
+    fi
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    rm composer-setup.php
+    chmod +x /usr/local/bin/composer
+else
+    composer selfupdate
+fi
+
 # Composer Install
 chown -R www-data: $WORKING_DIR
 sudo -u www-data composer install \

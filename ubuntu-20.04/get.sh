@@ -52,6 +52,10 @@ curl -f -SOJL \
     -H "License: $CHEVERETO_LICENSE" \
     "${CHEVERETO_API_DOWNLOAD}${CHEVERETO_PACKAGE}"
 
+# Extract
+unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
+rm -rf ${CHEVERETO_SOFTWARE}*.zip
+
 # composer
 if ! command -v composer &>/dev/null; then
     COMPOSER_CHECKSUM_VERIFY="$(php -r 'copy("https://composer.github.io/installer.sig", "php://stdout");')"
@@ -68,10 +72,6 @@ if ! command -v composer &>/dev/null; then
 else
     composer selfupdate
 fi
-
-# Extract
-unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
-rm -rf ${CHEVERETO_SOFTWARE}*.zip
 
 # Composer Install
 chown -R www-data: $WORKING_DIR
