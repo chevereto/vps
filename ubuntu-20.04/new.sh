@@ -181,7 +181,7 @@ password = ${DEBIAN_SYS_MAINT_MYSQL_PASS}
 socket   = /var/run/mysqld/mysqld.sock
 EOM
 
-CHEVERETO_ENCRYPTION_KEY=$(openssl rand -hex 32)
+CHEVERETO_ENCRYPTION_KEY=$(openssl rand -base64 32)
 
 # Settings
 cat >"$WORKING_DIR/app/env.php" <<EOM
@@ -205,6 +205,7 @@ chown -R www-data: $WORKING_DIR
 a2enmod rewrite
 
 # files/var/lib/cloud/scripts/per-instance/provision.sh (*)
+echo "Restarting apache2"
 systemctl restart apache2
 
 # common/scripts/14-ufw-apache.sh
