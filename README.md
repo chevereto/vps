@@ -48,7 +48,7 @@ This can be used in any context where the system stack is installed. It works at
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/get.sh)
 ```
 
-## Cloudflare remote IP
+### Cloudflare remote IP
 
 The `common/cf-remoteip.sh` script syncs the known IPs for CloudFlare remote IP.
 
