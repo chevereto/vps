@@ -48,6 +48,22 @@ This can be used in any context where the system stack is installed. It works at
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/get.sh)
 ```
 
+## Cloudflare remote IP
+
+The `common/cf-remoteip.sh` script syncs the known IPs for CloudFlare remote IP.
+
+```sh
+bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/get.sh)
+```
+
+You should save this script in your VPS and run it on cron to keep these ranges always updated.
+
+```sh
+cat >/etc/cron.d/cf-remoteip <<EOM
+30 3 * * * cf-remoteip.sh >/dev/null 2>&1
+EOM
+```
+
 ## HTTPS setup
 
 Run the following command to get https with `certbot`. Mind to change `example.com` with the target domain.
