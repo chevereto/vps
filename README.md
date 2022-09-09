@@ -17,7 +17,7 @@ Universal bash scripts to install Chevereto in any Ubuntu LTS (22.04 recommended
 
 ### Prepare
 
-The `prepare.sh` script install the system stack (web server, database, packages).
+The `ubuntu/22.04/prepare.sh` script install the system stack (web server, database, packages).
 
 Before running this command:
 
@@ -30,7 +30,7 @@ bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/ubuntu/22.04/
 
 ### New
 
-The `new.sh` script downloads Chevereto and its dependencies. It configures Apache HTTP Web server, MySQL, cron and it prepares Chevereto for [HTTP setup](https://v4-docs.chevereto.com/application/installing/installation.html#http-setup).
+The `common/new.sh` script downloads Chevereto and its dependencies. It configures Apache HTTP Web server, MySQL, cron and it prepares Chevereto for [HTTP setup](https://v4-docs.chevereto.com/application/installing/installation.html#http-setup).
 
 This is intended to brand new installations and it should run after [prepare](#prepare) as it assumes that the system stack is ready.
 
@@ -40,7 +40,7 @@ bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/new.sh
 
 ### Get
 
-The `get.sh` script downloads Chevereto and update it's dependencies.
+The `common/get.sh` script downloads Chevereto and update it's dependencies.
 
 This can be used in any context where the system stack is installed. It works at `/var/www/html` path.
 
@@ -53,7 +53,7 @@ bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/get.sh
 The `common/cf-remoteip.sh` script syncs the known IPs for CloudFlare remote IP.
 
 ```sh
-bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/get.sh)
+bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/cf-remoteip.sh)
 ```
 
 You should save this script in your VPS and run it on cron to keep these ranges always updated.
