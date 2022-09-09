@@ -72,7 +72,7 @@ Run the following command to get https with `certbot`. Mind to change `example.c
 certbot --apache -d example.com -d www.example.com
 ```
 
-### Notes
+## Notes
 
 On the server:
 
@@ -85,7 +85,7 @@ IMPORTANT:
 * Secure your database by running `mysql_secure_installation`
 * Setup email delivery at `http://localhost/dashboard/settings/email`
 
-### Troubleshooting
+## Troubleshooting
 
 * `E: Unable to lock directory /var/lib/apt/lists/`
 
