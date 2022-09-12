@@ -6,7 +6,7 @@
 
 [![Community](https://img.shields.io/badge/chv.to-community-blue?style=flat-square)](https://chv.to/community)
 
-Collection of universal bash scripts to install Chevereto in any VPS.
+Collection of universal bash scripts to install Chevereto in any VPS. We strongly recommend [Vultr](https://chv.to/vultr) and [Linode](https://chv.to/linode).
 
 ## Instructions
 
