@@ -69,17 +69,25 @@ bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/get.sh
 
 ### Cloudflare remote IP
 
-The [`cf-remoteip.sh`](common/cf-remoteip.sh) script syncs the known IPs for CloudFlare remote IP.
+The [`cf-remoteip.sh`](common/cf-remoteip.sh) script syncs the known IPs for CloudFlare remote IP. This **must** be used if you are using CloudFlare.
+
+> **Warning**: If you use CloudFlare and not complete this setup, your Chevereto installation won't be able to retrieve the real visitor IP.
 
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/cf-remoteip.sh)
 ```
 
-You should save this script in your VPS and run it on cron to keep these ranges always updated.
+Save the above script in your VPS and run it on cron to keep these ranges auto updated.
+
+```sh
+curl -f -SOJL \
+    --output-dir /etc/apache2 \
+    https://raw.githubusercontent.com/chevereto/vps/4.0/common/cf-remoteip.sh
+```
 
 ```sh
 cat >/etc/cron.d/cf-remoteip <<EOM
-30 3 * * * cf-remoteip.sh >/dev/null 2>&1
+30 3 * * * /etc/apache2/cf-remoteip.sh >/dev/null 2>&1
 EOM
 ```
 
