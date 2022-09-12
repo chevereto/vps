@@ -11,9 +11,12 @@ Universal bash scripts to install Chevereto in any Ubuntu LTS (22.04 recommended
 ## Instructions
 
 * Login to your VPS
+* `cd` into the website project folder
 * Run the following script(s)
 
 ## Ubuntu
+
+The scripts at `ubuntu/` should be only used in Ubuntu. If you run other system you may need to alter the scripts. Feel free to contribute.
 
 ### Prepare
 
@@ -30,6 +33,8 @@ bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/ubuntu/22.04/
 
 ## Common
 
+The scripts at `common/` will work under any `unix-like` system. The only requirements are `curl` and `unzip`. For debian-based systems scripts `new.sh` and `get.sh` will fix filesystem permissions for `www-data`.
+
 ### New
 
 The [`new.sh`](common/new.sh) script downloads Chevereto and its dependencies. It configures Apache HTTP Web server, MySQL, cron and it prepares Chevereto for [HTTP setup](https://v4-docs.chevereto.com/application/installing/installation.html#http-setup).
@@ -40,11 +45,23 @@ This is intended to brand new installations and it should run after [prepare](#p
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/new.sh)
 ```
 
+#### Notes
+
+On the server:
+
+* The web root is located at `/var/www/html`
+* The MySQL root password is saved at `/root/.mysql_password`
+* Logs are at `/var/log/apache2`
+
+IMPORTANT:
+
+* Secure your database by running `mysql_secure_installation`
+
 ### Get
 
-The [`get.sh`](common/get.sh) script download and extracts Chevereto.
+The [`get.sh`](common/get.sh) script download and extracts Chevereto in the current working folder.
 
-This can be used in any context where the system stack is installed. It works at `/var/www/html` path.
+This can be used in any context where the system stack is installed.
 
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/get.sh)
@@ -73,22 +90,3 @@ Run the following command to get https with certbot. Mind to change `example.com
 ```sh
 certbot --apache -d example.com -d www.example.com
 ```
-
-## Notes
-
-On the server:
-
-* The web root is located at `/var/www/html`
-* The MySQL root password is saved at `/root/.mysql_password`
-* Logs are at `/var/log/apache2`
-
-IMPORTANT:
-
-* Secure your database by running `mysql_secure_installation`
-* Setup email delivery at `http://localhost/dashboard/settings/email`
-
-## Troubleshooting
-
-* `E: Unable to lock directory /var/lib/apt/lists/`
-
-The VPS may be installing updates on boot. Give it a few minutes before running the command(s) and try later.

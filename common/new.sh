@@ -57,7 +57,13 @@ curl -f -SOJL \
 rm -rf "${WORKING_DIR}"/*
 unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
 rm -rf ${CHEVERETO_SOFTWARE}*.zip
-chown -R www-data: $WORKING_DIR
+
+# chown www-data
+if id "www-data" &>/dev/null; then
+    chown -R www-data: $WORKING_DIR
+else
+    echo '[NOTICE] www-data user not found, skipping ownership change'
+fi
 
 # scripts/01-fs.sh
 cat >/etc/apache2/sites-available/000-default.conf <<EOM
@@ -193,5 +199,5 @@ ufw --force enable
 
 # files/var/lib/cloud/scripts/per-instance/provision.sh (*)
 echo $(date -u) ": System provisioning script is complete." >>/var/log/per-instance.log
-echo "[OK] $CHEVERETO_LABEL provisioned!"
-echo "Continue the process at http://$PROJECT_IP"
+echo "[OK] $CHEVERETO_LABEL server and files provisioned!"
+echo "Proceed with installation http://$PROJECT_IP"

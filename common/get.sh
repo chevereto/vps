@@ -4,7 +4,7 @@ set -e
 
 # init.sh (start)
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-WORKING_DIR="/var/www/html"
+WORKING_DIR="$(pwd)"
 
 # Flags
 while getopts ":t:" opt; do
@@ -58,6 +58,12 @@ rm -rf $WORKING_DIR/app/vendor/*
 # Extract
 unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
 rm -rf ${CHEVERETO_SOFTWARE}*.zip
-chown -R www-data: $WORKING_DIR
 
-echo "[OK] $CHEVERETO_LABEL provisioned!"
+# chown www-data
+if id "www-data" &>/dev/null; then
+    chown -R www-data: $WORKING_DIR
+else
+    echo '[NOTICE] www-data user not found, skipping ownership change'
+fi
+
+echo "[OK] $CHEVERETO_LABEL files provisioned!"
