@@ -13,13 +13,13 @@ Universal bash scripts to install Chevereto in any Ubuntu LTS (22.04 recommended
 * Login to your VPS
 * Run the following script(s)
 
-## Scripts
+## Ubuntu
 
 ### Prepare
 
-The `ubuntu/22.04/prepare.sh` script install the system stack (web server, database, packages).
+The [`prepare.sh`](ubuntu/22.04/prepare.sh) script install the system stack (web server, database, packages, composer) on Ubuntu.
 
-Before running this command:
+Before running this script:
 
 * Reboot your VPS (to apply kernel updates)
 * Make sure to change `22.04` to your match your Ubuntu LTS
@@ -28,9 +28,11 @@ Before running this command:
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/ubuntu/22.04/prepare.sh)
 ```
 
+## Common
+
 ### New
 
-The `common/new.sh` script downloads Chevereto and its dependencies. It configures Apache HTTP Web server, MySQL, cron and it prepares Chevereto for [HTTP setup](https://v4-docs.chevereto.com/application/installing/installation.html#http-setup).
+The [`new.sh`](common/new.sh) script downloads Chevereto and its dependencies. It configures Apache HTTP Web server, MySQL, cron and it prepares Chevereto for [HTTP setup](https://v4-docs.chevereto.com/application/installing/installation.html#http-setup).
 
 This is intended to brand new installations and it should run after [prepare](#prepare) as it assumes that the system stack is ready.
 
@@ -40,7 +42,7 @@ bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/new.sh
 
 ### Get
 
-The `common/get.sh` script downloads Chevereto and update it's dependencies.
+The [`get.sh`](common/get.sh) script download and extracts Chevereto.
 
 This can be used in any context where the system stack is installed. It works at `/var/www/html` path.
 
@@ -50,7 +52,7 @@ bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/get.sh
 
 ### Cloudflare remote IP
 
-The `common/cf-remoteip.sh` script syncs the known IPs for CloudFlare remote IP.
+The [`cf-remoteip.sh`](common/cf-remoteip.sh) script syncs the known IPs for CloudFlare remote IP.
 
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/cf-remoteip.sh)
@@ -66,7 +68,7 @@ EOM
 
 ## HTTPS setup
 
-Run the following command to get https with `certbot`. Mind to change `example.com` with the target domain.
+Run the following command to get https with certbot. Mind to change `example.com` with the target domain(s).
 
 ```sh
 certbot --apache -d example.com -d www.example.com
