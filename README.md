@@ -6,7 +6,7 @@
 
 [![Community](https://img.shields.io/badge/chv.to-community-blue?style=flat-square)](https://chv.to/community)
 
-Universal bash scripts to install Chevereto in any Ubuntu LTS (22.04 recommended).
+Collection of universal bash scripts to install Chevereto in any VPS.
 
 ## Instructions
 
@@ -16,7 +16,7 @@ Universal bash scripts to install Chevereto in any Ubuntu LTS (22.04 recommended
 
 ## Ubuntu
 
-The scripts at `ubuntu/` should be only used in Ubuntu. If you run other system you may need to alter the scripts. Feel free to contribute.
+> **Note**: Ubuntu LTS 22.04 is recommended. If you run other system you may need to alter the scripts. Feel free to contribute.
 
 ### Prepare
 
