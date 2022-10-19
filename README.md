@@ -11,7 +11,6 @@ Collection of universal bash scripts to install Chevereto in any VPS. We strongl
 ## Instructions
 
 * Login to your VPS
-* `cd` into the website project folder
 * Run the following script(s)
 
 ## Ubuntu
@@ -62,6 +61,8 @@ IMPORTANT:
 The [`get.sh`](common/get.sh) script download and extracts Chevereto in the current working folder.
 
 This can be used in any context where the system stack is installed.
+
+* `cd` into the website project folder
 
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/get.sh)
