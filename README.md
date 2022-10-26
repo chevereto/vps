@@ -10,7 +10,7 @@ Collection of universal bash scripts to install Chevereto in any VPS. We strongl
 
 ## Instructions
 
-* Login to your VPS
+* Root login to your VPS
 * Run the following script(s)
 
 ## Ubuntu
