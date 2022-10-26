@@ -19,7 +19,7 @@ Collection of universal bash scripts to install Chevereto in any VPS. We strongl
 
 ### Prepare
 
-The [`prepare.sh`](ubuntu/22.04/prepare.sh) script install the system stack (web server, database, packages, composer) on Ubuntu.
+The [`prepare.sh`](ubuntu/22.04/prepare.sh) script install the system stack (PHP, Apache HTTP Web server, MySQL Server, Composer and Certbot) on Ubuntu.
 
 Before running this script:
 
@@ -32,11 +32,12 @@ bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/ubuntu/22.04/
 
 ## Common
 
-The scripts at `common/` will work under any `unix-like` system. The only requirements are `curl` and `unzip`. For debian-based systems scripts `new.sh` and `get.sh` will fix filesystem permissions for `www-data`.
+* The scripts at `common/` will work under any unix-like system
+* Requires `curl` and `unzip`
 
 ### New
 
-The [`new.sh`](common/new.sh) script downloads Chevereto and its dependencies. It configures Apache HTTP Web server, MySQL, cron and it prepares Chevereto for [HTTP setup](https://v4-docs.chevereto.com/application/installing/installation.html#http-setup).
+The [`new.sh`](common/new.sh) script downloads Chevereto and configures Apache HTTP Web server, MySQL, cron. Its purpose is to prepare Chevereto for [HTTP setup](https://v4-docs.chevereto.com/application/installing/installation.html#http-setup).
 
 This is intended to brand new installations and it should run after [prepare](#prepare) as it assumes that the system stack is ready.
 
@@ -60,9 +61,8 @@ IMPORTANT:
 
 The [`get.sh`](common/get.sh) script download and extracts Chevereto in the current working folder.
 
-This can be used in any context where the system stack is installed.
-
 * `cd` into the website project folder
+* Run the following command
 
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/common/get.sh)
