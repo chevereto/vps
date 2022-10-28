@@ -30,6 +30,12 @@ Before running this script:
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.0/ubuntu/22.04/prepare.sh)
 ```
 
+This message will be shown on success:
+
+```plain
+[OK] Stack ready for Chevereto!
+```
+
 ## Common
 
 The scripts at `common/` will work under any `unix-like` system. The only requirements are `curl` and `unzip`. For debian-based systems scripts `new.sh` and `get.sh` will fix filesystem permissions for `www-data`.
