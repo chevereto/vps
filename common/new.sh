@@ -43,20 +43,23 @@ cat <<EOM
 EOM
 
 # Ask license
-echo -n "$CHEVERETO_LABEL License (hidden):"
+echo -n "$CHEVERETO_LABEL License key (if any): 🔑"
 read -s CHEVERETO_LICENSE
 echo ""
 
+# Prepare temp dir
+rm -rf ./.temp && mkdir ./.temp && cd ./.temp
+
 # Download
-rm -rf ${CHEVERETO_SOFTWARE}*.zip
 curl -f -SOJL \
     -H "License: $CHEVERETO_LICENSE" \
     "${CHEVERETO_API_DOWNLOAD}${CHEVERETO_PACKAGE}"
 
 # Extract
 rm -rf "${WORKING_DIR}"/*
-unzip -oq ${CHEVERETO_SOFTWARE}*.zip -d $WORKING_DIR
-rm -rf ${CHEVERETO_SOFTWARE}*.zip
+unzip -oq *.zip -d $WORKING_DIR
+cd -
+rm -rf .temp
 
 # chown www-data
 if id "www-data" &>/dev/null; then
