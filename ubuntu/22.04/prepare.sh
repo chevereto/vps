@@ -10,7 +10,7 @@ This could take some minutes
 EOF
 
 # stop prompts
-sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' /etc/needrestart/needrestart.conf
+sed -i 's/#$nrconf{restart} = '"'"'i'"'"';/$nrconf{restart} = '"'"'a'"'"';/g' /etc/needrestart/needrestart.conf || true
 
 update() {
     DEBIAN_FRONTEND=noninteractive apt-get update -y -qq >/dev/null
