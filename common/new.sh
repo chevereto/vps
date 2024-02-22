@@ -126,10 +126,10 @@ cat >/etc/cron.d/chevereto <<EOM
 EOM
 
 # scripts/10-php.sh
-cat >/etc/php/8.1/apache2/conf.d/chevereto.ini <<EOM
+cat >/etc/php/8.2/apache2/conf.d/chevereto.ini <<EOM
 log_errors = On
-upload_max_filesize = 50M
-post_max_size = 50M
+upload_max_filesize = 64M
+post_max_size = 64M
 max_execution_time = 60
 memory_limit = 512M
 EOM
