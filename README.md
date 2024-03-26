@@ -4,7 +4,8 @@
 
 <img alt="Chevereto" src="LOGO.svg" width="100%">
 
-[![Community](https://img.shields.io/badge/chv.to-community-blue?style=flat-square)](https://chv.to/community)
+[![Community](https://img.shields.io/badge/chevereto-community-blue?style=flat-square)](https://chevereto.com/community)
+[![Discord](https://img.shields.io/badge/chevereto-discord-5865F2?style=flat-square)](https://chevereto.com/go/discord)
 
 Collection of universal bash scripts to install Chevereto in any VPS. We strongly recommend [Vultr](https://chv.to/vultr) and [Linode](https://chv.to/linode).
 
