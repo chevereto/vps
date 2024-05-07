@@ -18,14 +18,29 @@ update() {
 }
 update
 apt-get install -qq -y ca-certificates apt-transport-https software-properties-common
-add-apt-repository -y ppa:ondrej/php
-add-apt-repository -y ppa:ondrej/apache2
-apt-get install -qq -y apache2 libapache2-mod-php8.2
 apt-get install -qq -y mysql-server
 apt-get install -qq -y ffmpeg
-apt-get install -qq -y php8.2
-apt-get install -qq -y php8.2-{bcmath,common,cli,curl,fileinfo,gd,imagick,intl,mbstring,mysql,opcache,pdo,pdo-mysql,xml,xmlrpc,zip}
 apt-get install -qq -y python3-certbot-apache unzip
+add-apt-repository -y ppa:ondrej/php
+add-apt-repository -y ppa:ondrej/apache2
+apt-get install -qq -y apache2 libapache2-mod-php8.3
+apt-get install -qq -y php8.3
+apt-get install -qq -y php8.3-bcmath
+apt-get install -qq -y php8.3-common
+apt-get install -qq -y php8.3-cli
+apt-get install -qq -y php8.3-curl
+apt-get install -qq -y php8.3-fileinfo
+apt-get install -qq -y php8.3-gd
+apt-get install -qq -y php8.3-imagick
+apt-get install -qq -y php8.3-intl
+apt-get install -qq -y php8.3-mbstring
+apt-get install -qq -y php8.3-mysql
+apt-get install -qq -y php8.3-opcache
+apt-get install -qq -y php8.3-pdo
+apt-get install -qq -y php8.3-pdo-mysql
+apt-get install -qq -y php8.3-xml
+apt-get install -qq -y php8.3-xmlrpc
+apt-get install -qq -y php8.3-zip
 
 # composer
 if ! command -v composer &>/dev/null; then
