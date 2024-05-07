@@ -19,6 +19,7 @@ add-apt-repository -y ppa:ondrej/php
 add-apt-repository -y ppa:ondrej/apache2
 apt-get install -qq -y apache2 libapache2-mod-php8.2
 apt-get install -qq -y mysql-server
+apt-get install -qq -y ffmpeg
 apt-get install -qq -y php8.2
 apt-get install -qq -y php8.2-{bcmath,common,cli,curl,fileinfo,gd,imagick,intl,mbstring,mysql,opcache,pdo,pdo-mysql,xml,xmlrpc,zip}
 apt-get install -qq -y python3-certbot-apache unzip
