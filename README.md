@@ -9,7 +9,7 @@
 [![Chevereto Discord](https://img.shields.io/badge/chevereto-discord-5865F2?style=flat-square)](https://chevereto.com/go/discord)
 [![Chevereto Demo](https://img.shields.io/badge/chevereto-demo-d4af37?style=flat-square)](https://demo.chevereto.com)
 
-Collection of universal bash scripts to install Chevereto in any VPS. We strongly recommend [DigitalOcean](https://chv.to/digitalocean), [Vultr](https://chv.to/vultr) and [Linode](https://chv.to/linode).
+Collection of universal bash scripts to install Chevereto in any VPS (Virtual Private Server). We strongly recommend [DigitalOcean](https://chv.to/digitalocean), [Vultr](https://chv.to/vultr) and [Linode](https://chv.to/linode).
 
 ## Instructions
 
@@ -22,12 +22,15 @@ Collection of universal bash scripts to install Chevereto in any VPS. We strongl
 
 ### Prepare
 
-The [`prepare.sh`](ubuntu/24.04/prepare.sh) script install the system stack (PHP, Apache HTTP Web server, MySQL Server, Composer, FFmpeg and Certbot) on Ubuntu.
+The [prepare.sh](ubuntu/24.04/prepare.sh) script install the system stack (PHP, Apache HTTP Web server, MySQL Server, Composer, FFmpeg and Certbot) on Ubuntu.
 
-Before running this script:
+Reboot the VPS to make sure to apply any pending kernel updates:
 
-* Reboot your VPS (to apply kernel updates)
-* Make sure to change `24.04` to match your Ubuntu LTS (available 20.04, 22.04 and 24.04)
+```sh
+systemctl reboot
+```
+
+Make sure to change `24.04` to match your Ubuntu LTS (available 20.04, 22.04 and 24.04).
 
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.1/ubuntu/24.04/prepare.sh)
@@ -46,7 +49,7 @@ This message will be shown on success:
 
 ### New
 
-The [`new.sh`](common/new.sh) script downloads Chevereto and configures Apache HTTP Web server, MySQL, CRON and FFmpeg. Its purpose is to prepare for [Chevereto Installation](https://v4-docs.chevereto.com/application/installing/installation.html).
+The [new.sh](common/new.sh) script downloads Chevereto and configures Apache HTTP Web server, MySQL, CRON and FFmpeg. Its purpose is to prepare for [Chevereto Installation](https://v4-docs.chevereto.com/application/installing/installation.html).
 
 This is intended to brand new installations and it should run after [prepare](#prepare) as it assumes that the system stack is ready.
 
@@ -68,7 +71,7 @@ IMPORTANT:
 
 ### Get
 
-The [`get.sh`](common/get.sh) script download and extracts Chevereto in the **current working folder**.
+The [get.sh](common/get.sh) script download and extracts Chevereto in the **current working folder**.
 
 * `cd` into the website project folder (for example `/var/www/html`)
 * Run the following command
@@ -79,7 +82,7 @@ bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.1/common/get.sh
 
 ### Cloudflare remote IP
 
-The [`cf-remoteip.sh`](common/cf-remoteip.sh) script syncs the known IPs for CloudFlare remote IP. This **must** be used if you are using CloudFlare.
+The [cf-remoteip.sh](common/cf-remoteip.sh) script syncs the known IPs for CloudFlare remote IP. This **must** be used if you are using CloudFlare.
 
 > **Warning**: If you use CloudFlare and not complete this setup your Chevereto installation won't be able to retrieve real visitors IP.
 
