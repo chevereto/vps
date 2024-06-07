@@ -49,7 +49,7 @@ This message will be shown on success:
 
 ### New
 
-The [new.sh](common/new.sh) script downloads Chevereto and configures Apache HTTP Web server, MySQL, CRON and FFmpeg. Its purpose is to prepare for [Chevereto Installation](https://v4-docs.chevereto.com/application/installing/installation.html).
+The [new.sh](common/new.sh) script downloads Chevereto and configures Apache HTTP Web server, MySQL and CRON. Its purpose is to prepare for [Chevereto Installation](https://v4-docs.chevereto.com/application/installing/installation.html).
 
 This is intended to brand new installations and it should run after [prepare](#prepare) as it assumes that the system stack is ready.
 

@@ -24,7 +24,7 @@ apt-get install -qq -y apache2 libapache2-mod-php8.2
 apt-get install -qq -y mysql-server
 apt-get install -qq -y ffmpeg
 apt-get install -qq -y php8.2
-apt-get install -qq -y php8.2-{bcmath,common,cli,curl,fileinfo,gd,imagick,intl,mbstring,mysql,opcache,pdo,pdo-mysql,xml,xmlrpc,zip}
+apt-get install -qq -y php8.2-{common,bcmath,cli,curl,fileinfo,gd,imagick,intl,mbstring,mysql,opcache,pdo,pdo-mysql,xml,xmlrpc,zip}
 apt-get install -qq -y python3-certbot-apache unzip
 
 # composer
@@ -48,4 +48,5 @@ fi
 # safe update
 update
 
+systemctl restart apache2
 echo "[OK] Stack ready for Chevereto!"

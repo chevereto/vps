@@ -45,4 +45,6 @@ fi
 # safe update
 update
 
+systemctl restart apache2
+
 echo "[OK] Stack ready for Chevereto!"
