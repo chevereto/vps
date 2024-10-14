@@ -1,6 +1,6 @@
 # Chevereto VPS
 
-> 🔔 [Subscribe](https://chv.to/newsletter) to don't miss any update regarding Chevereto.
+> 🔔 [Subscribe](https://chevereto.com/go/newsletter) to don't miss any update regarding Chevereto.
 
 <img alt="Chevereto" src="LOGO.svg" width="100%">
 
@@ -9,7 +9,7 @@
 [![Chevereto Discord](https://img.shields.io/badge/chevereto-discord-5865F2?style=flat-square)](https://chevereto.com/go/discord)
 [![Chevereto Demo](https://img.shields.io/badge/chevereto-demo-d4af37?style=flat-square)](https://demo.chevereto.com)
 
-Collection of universal bash scripts to install Chevereto in any VPS (Virtual Private Server). We strongly recommend [DigitalOcean](https://chv.to/digitalocean), [Vultr](https://chv.to/vultr) and [Linode](https://chv.to/linode).
+Collection of universal bash scripts to install Chevereto in any VPS (Virtual Private Server). We strongly recommend [DigitalOcean](https://chevereto.com/go/digitalocean), [Vultr](https://chevereto.com/go/vultr) and [Linode](https://chevereto.com/go/linode).
 
 ## Instructions
 
