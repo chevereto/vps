@@ -20,7 +20,7 @@ Collection of universal bash scripts to install Chevereto in any VPS (Virtual Pr
 
 > **Note**: Ubuntu LTS 24.04 is recommended. If you run other system you may need to alter the scripts. Feel free to contribute.
 
-### Prepare
+### Prepare Ubuntu
 
 The [prepare.sh](ubuntu/24.04/prepare.sh) script install the system stack (PHP, Apache HTTP Web server, MySQL Server, Composer, FFmpeg and Certbot) on Ubuntu.
 
@@ -33,7 +33,7 @@ systemctl reboot
 Make sure to change `24.04` to match your Ubuntu LTS (available 20.04, 22.04 and 24.04).
 
 ```sh
-bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.1/ubuntu/24.04/prepare.sh)
+bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.2/ubuntu/24.04/prepare.sh)
 ```
 
 This message will be shown on success:
@@ -41,6 +41,33 @@ This message will be shown on success:
 ```plain
 [OK] Stack ready for Chevereto!
 ```
+
+## Debian
+
+> **Note**: Debian 12 is recommended.
+
+### Prepare Debian
+
+The [prepare.sh](debian/12/prepare.sh) script install the system stack (PHP, nginx/Apache HTTP Web server, MySQL Server, Composer, FFmpeg and Certbot) on Debian.
+
+Reboot the VPS to make sure to apply any pending kernel updates:
+
+```sh
+systemctl reboot
+```
+
+Make sure to change `12` to match your Debian (available 12).
+
+```sh
+bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.2/debian/12/prepare.sh)
+```
+
+This message will be shown on success:
+
+```plain
+[OK] Stack ready for Chevereto!
+```
+
 
 ## Common
 
@@ -54,7 +81,7 @@ The [new.sh](common/new.sh) script downloads Chevereto and configures Apache HTT
 This is intended to brand new installations and it should run after [prepare](#prepare) as it assumes that the system stack is ready.
 
 ```sh
-bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.1/common/new.sh)
+bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.2/common/new.sh)
 ```
 
 #### Notes
@@ -77,7 +104,7 @@ The [get.sh](common/get.sh) script download and extracts Chevereto in the **curr
 * Run the following command
 
 ```sh
-bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.1/common/get.sh)
+bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.2/common/get.sh)
 ```
 
 ### Cloudflare remote IP
@@ -87,7 +114,7 @@ The [cf-remoteip.sh](common/cf-remoteip.sh) script syncs the known IPs for Cloud
 > **Warning**: If you use CloudFlare and not complete this setup your Chevereto installation won't be able to retrieve real visitors IP.
 
 ```sh
-bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.1/common/cf-remoteip.sh)
+bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.2/common/cf-remoteip.sh)
 ```
 
 * To save the above script in your VPS:
@@ -95,7 +122,7 @@ bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.1/common/cf-rem
 ```sh
 curl -f -SOJL \
     --output-dir /etc/apache2 \
-    https://raw.githubusercontent.com/chevereto/vps/4.1/common/cf-remoteip.sh
+    https://raw.githubusercontent.com/chevereto/vps/4.2/common/cf-remoteip.sh
 ```
 
 * To add the above script to CRON (cron.d) to keep these IP ranges auto updated:
