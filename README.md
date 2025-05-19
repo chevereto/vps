@@ -11,12 +11,7 @@
 
 Collection of bash scripts to install Chevereto in any VPS (Virtual Private Server).
 
-## Instructions
-
-* Root login to your VPS
-* Run the following script(s)
-
-### Stack
+## Stack
 
 * PHP
 * Apache HTTP Web server
@@ -26,6 +21,11 @@ Collection of bash scripts to install Chevereto in any VPS (Virtual Private Serv
 * Certbot
 * ExifTool
 * exiftran
+
+## Instructions
+
+* Root login to your VPS
+* Run the following script(s)
 
 ## Ubuntu
 
