@@ -20,6 +20,8 @@ update
 apt-get install -qq -y ca-certificates apt-transport-https software-properties-common
 apt-get install -qq -y mysql-server
 apt-get install -qq -y ffmpeg
+apt-get install -qq -y libimage-exiftool-perl
+apt-get install -qq -y exiftran
 apt-get install -qq -y python3-certbot-apache unzip
 add-apt-repository -y ppa:ondrej/php
 add-apt-repository -y ppa:ondrej/apache2
