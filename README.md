@@ -82,7 +82,6 @@ This message will be shown on success:
 [OK] Stack ready for Chevereto!
 ```
 
-
 ## Common
 
 * The scripts at `common/` will work under any unix-like system
@@ -92,7 +91,7 @@ This message will be shown on success:
 
 The [new.sh](common/new.sh) script downloads Chevereto and configures Apache HTTP Web server, MySQL and CRON. Its purpose is to prepare for [Chevereto Installation](https://v4-docs.chevereto.com/application/installing/installation.html).
 
-This is intended to brand new installations and it should run after [prepare](#prepare) as it assumes that the system stack is ready.
+This is intended to brand new installations and it should run after prepare step as it assumes that the system stack is ready.
 
 ```sh
 bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.3/common/new.sh)
@@ -147,7 +146,7 @@ cat >/etc/cron.d/cf-remoteip <<EOM
 EOM
 ```
 
-## HTTPS setup
+### HTTPS setup
 
 Run the following command to get automatic renewable HTTPS thanks to certbot. Mind to change `example.com` with the target domain(s).
 
@@ -159,4 +158,12 @@ If you are using `www.` subdomain you can add it like this:
 
 ```sh
 certbot --apache -d example.com -d www.example.com
+```
+
+### Wipe leftovers
+
+The [wipe-v3-leftovers.sh](common/wipe-v3-leftovers.sh) script removes any previous Chevereto V3 installation leftovers from the current working folder.
+
+```sh
+bash <(curl -s https://raw.githubusercontent.com/chevereto/vps/4.3/common/wipe-v3-leftovers.sh)
 ```
